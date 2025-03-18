@@ -17,6 +17,30 @@ void UserInterface::showHelp(void)
 
 void UserInterface::showMyIp(void)
 {
-    struct ifaddrs *ifaddr, *ifa;
+    char ip_address[IP_ADDRESS_LENGTH];
 
+    FILE *file = popen("hostname -I", "r");
+
+    if(file == NULL)
+    {
+        std::cerr << "Failed to get the IP address" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    if(fgets(ip_address, sizeof(ip_address), file) == NULL)
+    {
+        std::cerr << "Failed to read the IP address" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    else
+    {
+        std::cout << "IP address: " << ip_address << std::endl;
+    }
+
+    pclose(file);
+}
+
+void UserInterface::showMyPort(void)
+{
+    std::cout << "Listening port: " << PORT << std::endl;
 }

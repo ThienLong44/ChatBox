@@ -12,14 +12,23 @@ private:
     int port;
     struct sockaddr_in address;
     socklen_t address_length;
+
+    // Instance variables
+    static Socket *instance;
+
 public:
     void InitializeSocket(void);
     void CreateSocket(void);
     void SetPort(int port);
+    int GetPort(void);
     void BindSocket(void);
     void ListenSocket(void);
     void AcceptSocket(void);
     void CloseSocket(void);
+    
+    // Singleton pattern
+    static Socket getInstance(void); 
+
 }device_t;
 
 
